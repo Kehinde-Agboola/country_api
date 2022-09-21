@@ -40,7 +40,7 @@ const Detail = () => {
           // onClick={() => gohomeBtn()}
         >
           <p>
-            Go Back
+            Back
             <span>
               <i className="fa fa-arrow-left"></i>
             </span>
@@ -86,19 +86,19 @@ const Detail = () => {
           <p>
             Top Level Domain:
             <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.topleveldomain}
+              {state.topleveldomain[0]}
             </span>
           </p>
           <p>
             Currency:
             <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.currency}
+              {state.currencies.map((cur) => cur.name)}
             </span>
           </p>
           <p>
             Language:
             <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.language}
+              {state.languages.ma((lang) => lang.name + ",")}
             </span>
           </p>
         </div>
