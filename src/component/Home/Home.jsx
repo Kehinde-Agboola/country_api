@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcons } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcons } from "@fortawesome/react-fontawesome";
 // import { load } from "./@fortawesome/free-solid-icons";
 import Cards from "../../component/Card/Card";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ const Home = () => {
   const [country, setcountries] = useState([]);
   const [mode, setMode] = useState();
   const [toggle, setToggle] = useState(`LightMode <i class="fa fa-sun"></i> `);
-  const [spiner, setspiner] = useState(false);
+  // const [spiner, setspiner] = useState(false);
 
   const getCountry = async () => {
     const res = await fetch("https://restcountries.com/v3.1/all");

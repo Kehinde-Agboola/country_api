@@ -13,12 +13,11 @@ const Cards = ({ title, image_url, population, region, capital, index }) => {
           {title}
         </h1>
         <p className="text-xs text-gray-700 dark:text-white">
-          {" "}
           Population:
           <span className="text-gray-700 dark:text-white"> {population}</span>
         </p>
         <p className="text-xs text-gray-700 dark:text-white">
-          region{" "}
+          region:
           <span className="text-gray-700 dark:text-white"> {region}</span>
         </p>
         <p className="text-xs text-gray-700 dark:text-white">
