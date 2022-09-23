@@ -19,14 +19,6 @@ const Home = () => {
     getCountry();
   }, []);
 
-  // console.log("countries", country);
-  // const loaderspiner = () => {
-  //   if (spiner) {
-  //     <li>
-  //       <i class="fa fa-spinner" aria-hidden="true"></i>
-  //     </li>;
-  //   }
-  // };
   const toggleDarkMode = () => {
     if (mode) {
       document.documentElement.classList.add("dark");
