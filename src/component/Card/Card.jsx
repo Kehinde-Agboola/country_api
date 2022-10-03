@@ -6,7 +6,7 @@ const Cards = ({ title, image_url, population, region, capital, index }) => {
       <img
         src={image_url.svg}
         alt="{Fladgs}"
-        className="h-1/2 w-full rounded-tl-lg rounded-tr-lg "
+        className="h-1/3 w-full rounded-tl-lg rounded-tr-lg "
       />
       <div className="p-4">
         <h1 className="font-bold mb-4 text-gray-700 dark:text-white">

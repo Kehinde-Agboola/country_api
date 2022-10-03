@@ -48,7 +48,7 @@ const Detail = () => {
         </button>
       </div>
       <div className="container mx-auto p-8 pl-0 pr-0">
-        <img src={state.flag} alt={state.flage} />
+        <img src={state.flag} alt={state.flag} />
         <div className="p-8 pl-0">
           <h2 className="font-bold text-2xl mb-8">{state.name.common}</h2>
         </div>
@@ -74,7 +74,7 @@ const Detail = () => {
           <p>
             SubRegion:
             <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.subregion}
+              {state.Subregion}
             </span>
           </p>
           <p>
@@ -98,7 +98,7 @@ const Detail = () => {
           <p>
             Language:
             <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.languages.ma((lang) => lang.name + ",")}
+              {state.languages.map((lang) => lang.name + ",")}
             </span>
           </p>
         </div>
@@ -110,7 +110,9 @@ const Detail = () => {
           <h1>Where in {state.name.common}</h1>
         </div>
 
-        <div className="container w-full block">{state.maps}</div>
+        <div className="container w-full block">
+          <div>{state.maps.map((map) => map.OpenStreetMaps)}</div>
+        </div>
       </div>
     </div>
   );

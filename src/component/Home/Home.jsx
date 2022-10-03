@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import { FontAwesomeIcons } from "@fortawesome/react-fontawesome";
-// import { load } from "./@fortawesome/free-solid-icons";
 import Cards from "../../component/Card/Card";
 import { Link } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
 
 const Home = () => {
   const [country, setcountries] = useState([]);
   const [mode, setMode] = useState();
+  const [loading, setloading] = useState(false);
   const [toggle, setToggle] = useState(`LightMode <i class="fa fa-sun"></i> `);
-  // const [spiner, setspiner] = useState(false);
 
   const getCountry = async () => {
     const res = await fetch("https://restcountries.com/v3.1/all");
@@ -17,6 +16,7 @@ const Home = () => {
   };
   useEffect(() => {
     getCountry();
+    setloading(true);
   }, []);
 
   const toggleDarkMode = () => {
@@ -47,11 +47,11 @@ const Home = () => {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-800 dark:text-white">
-      <div class="fa-3x">
+      {/* <div class="fa-3x">
         <i class="fas fa-spinner fa-pulse"></i>
-      </div>
+      </div> */}
       <div className="w-screen shadow-md py-6 md:px-10 px-3 bg-white dark:bg-gray-700 dark:text-white mb-16">
-        <div className="flex container mx-auto">
+        <div className=" max-w-full w-full flex mx-auto">
           <h1 className="font-bold text-xl text-gray-700 dark:text-white">
             Where in the world
           </h1>
@@ -64,19 +64,19 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 mx-10">
-        <div className="">
-          <i className="fa fa-search my-auto -mr-9 z-10 rounded-md md:pr-2 md:pl-3 md:py-5 text-gray-400 "></i>
+      <div className="max-w-full w-full flex mx-auto md:flex md:flex-cols py-6 md:px-10 px-3">
+        <div className="w-full">
+          <i className="fa fa-search rounded-md text-gray-400 "></i>
           <input
             type="text"
-            className="dark:bg-gray-700 dark:text-white outline-none pl-10 p-4 shadow-md rounded-md md:w-1/3 text-gray-700"
+            className="dark:bg-gray-700 dark:text-white outline-none p-4 shadow-md rounded-md w-full md:w-1/3 text-gray-700"
             onChange={(term) => searchCountry(term.target.value)}
             placeholder="search for a country..."
           />
         </div>
 
         <select
-          className="ml-auto my-2 p-2 shadow-md rounded-md font-medium dark:bg-gray-700 outline-none dark:text-white text-gray-700 "
+          className="shadow-md rounded-md font-medium dark:bg-gray-700 outline-none dark:text-white text-gray-700 "
           onChange={(val) => filterByRegion(val.target.value)}
         >
           <option value="">Filter by Religion</option>
@@ -88,18 +88,20 @@ const Home = () => {
         </select>
       </div>
 
-      <div className="grid sm:grid sm:grid-cols-1 md:grid md:grid-cols-3 xl:grid xl:grid-cols-4 gap-16 mx-auto items-center justify-center">
-        {country?.map((count, index) => (
-          <Link to={{ pathname: "details", state: country }} key={index}>
-            <Cards
-              title={count.name.common}
-              image_url={count.flags}
-              population={count.population}
-              region={count.region}
-              capital={count.capital}
-            />
-          </Link>
-        ))}
+      <div className="max-w-full py-6 md:px-10 px-3 grid sm:grid sm:grid-cols-2 md:grid md:grid-cols-3 xl:grid xl:grid-cols-4 gap-16 mx-auto items-center justify-center">
+        {loading
+          ? { BeatLoader }
+          : country?.map((count, index) => (
+              <Link to={{ pathname: "details", state: country }} key={index}>
+                <Cards
+                  title={count.name.common}
+                  image_url={count.flags}
+                  population={count.population}
+                  region={count.region}
+                  capital={count.capital}
+                />
+              </Link>
+            ))}
       </div>
     </div>
   );
