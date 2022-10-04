@@ -6,8 +6,10 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/details" element={<Detail />} />
+        <Route exact path="/" element={<Home />} />
+      </Routes>
+      <Routes>
+        <Route path="/:name" children={<Detail />} />
       </Routes>
     </>
   );

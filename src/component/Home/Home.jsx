@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cards from "../../component/Card/Card";
 import { Link } from "react-router-dom";
-import { BeatLoader } from "react-spinners";
+import Spiner from "../Spiner/Spiner";
 
 const Home = () => {
   const [country, setcountries] = useState([]);
@@ -10,13 +10,14 @@ const Home = () => {
   const [toggle, setToggle] = useState(`LightMode <i class="fa fa-sun"></i> `);
 
   const getCountry = async () => {
+    setloading(true);
     const res = await fetch("https://restcountries.com/v3.1/all");
     const data = await res.json();
+    setloading(false);
     setcountries(data);
   };
   useEffect(() => {
     getCountry();
-    setloading(true);
   }, []);
 
   const toggleDarkMode = () => {
@@ -33,23 +34,26 @@ const Home = () => {
   };
 
   const searchCountry = async (term) => {
-    if (term.length < 3 || term === "") return;
+    if (term.length < 0 || term === "") return;
+    setloading(true);
     const res = await fetch(`https://restcountries.com/v3.1/name/${term}`);
     const data = await res.json();
+    setloading(false);
     setcountries(data);
   };
   const filterByRegion = async (region) => {
+    setloading(true);
     if (region === "") return;
-    const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
+    const res = await fetch(
+      `https://restcountries.com/v3.1/region/{region}${region}`
+    );
     const data = await res.json();
+    setloading(false);
     setcountries(data);
   };
 
   return (
     <div className="bg-gray-100 dark:bg-gray-800 dark:text-white">
-      {/* <div class="fa-3x">
-        <i class="fas fa-spinner fa-pulse"></i>
-      </div> */}
       <div className="w-screen shadow-md py-6 md:px-10 px-3 bg-white dark:bg-gray-700 dark:text-white mb-16">
         <div className=" max-w-full w-full flex mx-auto">
           <h1 className="font-bold text-xl text-gray-700 dark:text-white">
@@ -89,19 +93,21 @@ const Home = () => {
       </div>
 
       <div className="max-w-full py-6 md:px-10 px-3 grid sm:grid sm:grid-cols-2 md:grid md:grid-cols-3 xl:grid xl:grid-cols-4 gap-16 mx-auto items-center justify-center">
-        {loading
-          ? { BeatLoader }
-          : country?.map((count, index) => (
-              <Link to={{ pathname: "details", state: country }} key={index}>
-                <Cards
-                  title={count.name.common}
-                  image_url={count.flags}
-                  population={count.population}
-                  region={count.region}
-                  capital={count.capital}
-                />
-              </Link>
-            ))}
+        {loading ? (
+          <Spiner />
+        ) : (
+          country?.map((count, index) => (
+            <Link to={`/details/${name}`} key={index}>
+              <Cards
+                title={count.name.common}
+                image_url={count.flags}
+                population={count.population}
+                region={count.region}
+                capital={count.capital}
+              />
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );

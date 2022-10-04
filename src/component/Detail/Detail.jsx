@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-const Detail = () => {
+import Spiner from "../Spiner/Spiner";
+const Detail = ({ match }) => {
+  console.log("match", match);
   const [mode, setMode] = useState();
   const [toggle, setToggle] = useState(`LightMode <i class="fa fa-sun"></i> `);
+  const [loading, setloading] = useState(false);
+
+  useEffect(() => {
+    setloading(true);
+  }, []);
+
   const toggleDarkMode = () => {
     if (mode) {
       document.documentElement.classList.add("dark");
@@ -17,7 +25,6 @@ const Detail = () => {
   };
   const { state } = useLocation();
   // const gohomeBtn = () => .push("/");
-
   return (
     <div className="bg-gray-100 dark:gray-800 text-white">
       <div className="w-screen shadow-md py-6 md:px-10 px-3 bg-white dark:bg-gray-700 dark:text-white mb-16">
@@ -35,10 +42,7 @@ const Detail = () => {
         </div>
       </div>
       <div className="container mx-auto mb-16">
-        <button
-          className="px-18 py-2 bg-white text-gray-600 shadow-md rounded-lg dark:bg-gray-700 dark:text-white"
-          // onClick={() => gohomeBtn()}
-        >
+        <button className="px-18 py-2 bg-white text-gray-600 shadow-md rounded-lg dark:bg-gray-700 dark:text-white">
           <p>
             Back
             <span>
@@ -47,75 +51,79 @@ const Detail = () => {
           </p>
         </button>
       </div>
-      <div className="container mx-auto p-8 pl-0 pr-0">
-        <img src={state.flag} alt={state.flag} />
-        <div className="p-8 pl-0">
-          <h2 className="font-bold text-2xl mb-8">{state.name.common}</h2>
-        </div>
-        <div className="grid grid-cols-2 gap-x-20 gap-y-4">
-          <p>
-            NativeName:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.nativename}
-            </span>
-          </p>
-          <p>
-            Population:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.population}
-            </span>
-          </p>
-          <p>
-            Region:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.region}
-            </span>
-          </p>
-          <p>
-            SubRegion:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.Subregion}
-            </span>
-          </p>
-          <p>
-            Capital:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.capital}
-            </span>
-          </p>
-          <p>
-            Top Level Domain:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.topleveldomain[0]}
-            </span>
-          </p>
-          <p>
-            Currency:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.currencies.map((cur) => cur.name)}
-            </span>
-          </p>
-          <p>
-            Language:
-            <span className="dark:text-gray-400 text-gray-700 text-sm">
-              {state.languages.map((lang) => lang.name + ",")}
-            </span>
-          </p>
-        </div>
-      </div>
+      {loading ? (
+        <Spiner />
+      ) : (
+        <>
+          <div className="container mx-auto p-8 pl-0 pr-0">
+            <img src={state.flag} alt={state.flag} />
+            <div className="p-8 pl-0">
+              <h2 className="font-bold text-2xl mb-8">{state.name.common}</h2>
+            </div>
+            <div className="grid grid-cols-2 gap-x-20 gap-y-4">
+              <p>
+                NativeName:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.nativename}
+                </span>
+              </p>
+              <p>
+                Population:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.population}
+                </span>
+              </p>
+              <p>
+                Region:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.region}
+                </span>
+              </p>
+              <p>
+                SubRegion:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.Subregion}
+                </span>
+              </p>
+              <p>
+                Capital:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.capital}
+                </span>
+              </p>
+              <p>
+                Top Level Domain:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.topleveldomain[0]}
+                </span>
+              </p>
+              <p>
+                Currency:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.currencies.map((cur) => cur.name)}
+                </span>
+              </p>
+              <p>
+                Language:
+                <span className="dark:text-gray-400 text-gray-700 text-sm">
+                  {state.languages.map((lang) => lang.name + ",")}
+                </span>
+              </p>
+            </div>
+          </div>
 
-      {/* Map */}
-      <div className="bg-gray-100 dark:gray-800 text-white">
-        <div className="w-screen shadow-md py-6 md:px-10 px-3 bg-white dark:bg-gray-700 dark:text-white mb-16">
-          <h1>Where in {state.name.common}</h1>
-        </div>
+          <div className="bg-gray-100 dark:gray-800 text-white">
+            <div className="w-screen shadow-md py-6 md:px-10 px-3 bg-white dark:bg-gray-700 dark:text-white mb-16">
+              <h1>Where in {state.name.common}</h1>
+            </div>
 
-        <div className="container w-full block">
-          <div>{state.maps.map((map) => map.OpenStreetMaps)}</div>
-        </div>
-      </div>
+            <div className="container w-full block">
+              <div>{state.maps.map((map) => map.OpenStreetMaps)}</div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
-
 export default Detail;
